@@ -1,12 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+// import store from '_STORE';
+let customStyle = '';
+switch (store.state.component.theme) {
+  case 'black':
+    customStyle = './style/black.less';
+    break;
+  case 'blue':
+    customStyle = './style/blue.less';
+    break;
+  case 'red':
+    customStyle = './style/red.less';
+    break;
+}
+console.log(customStyle);
+// import `./style/${customStyle}.less`;
+// import './style/black.less';
+// import './style/blue.less';
+// import './style/red.less';
+
+export default {
+  name: 'app',
+};
+</script>
+
 
 <style lang="less">
 #app {
@@ -15,15 +37,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>

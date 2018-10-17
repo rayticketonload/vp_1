@@ -1,11 +1,10 @@
 <template>
-  <div class="home">
+  <div class="center">
     <HelloWorld />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
@@ -15,3 +14,13 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+

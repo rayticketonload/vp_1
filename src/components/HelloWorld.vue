@@ -1,33 +1,40 @@
 <template>
-  <div class="hello">
-    <Button>just test iview</Button>
+  <div>
+    <RadioGroup v-model="theme"
+                type="button"
+                :on-change="themeChange()">
+      <Radio label="black">黑色</Radio>
+      <Radio label="blue">蓝色</Radio>
+      <Radio label="red">红色</Radio>
+    </RadioGroup>
   </div>
 </template>
 
 <script>
-import { Button } from 'iview';
+import { mapState } from 'vuex';
+import { Button, RadioGroup, Radio } from 'iview';
+import store from '_STORE';
+import { SET_THEME } from '_STORE/types';
+
 export default {
   name: 'HelloWorld',
+
   components: {
     Button,
+    Radio,
+    RadioGroup,
+  },
+
+  data() {
+    return {
+      theme: 'black',
+    };
+  },
+
+  methods: {
+    themeChange() {
+      store.commit(SET_THEME, this.theme);
+    },
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
