@@ -1,16 +1,23 @@
 <template>
   <div class="center">
-    <HelloWorld />
+    <div>
+      <languageChange />
+    </div>
+    <div style="padding-top: 30px;">
+      <exampleSection />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
+import languageChange from '_COMPONENTS/section/languageChange.vue';
+import exampleSection from '_COMPONENTS/section/exampleSection.vue';
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
+    languageChange,
+    exampleSection,
   },
 };
 </script>

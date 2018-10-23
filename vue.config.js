@@ -8,6 +8,8 @@ module.exports = {
   },
   chainWebpack: (config) => {
     config.resolve.alias
-      .set('_STORE', '@/store');
+      .set('_COMPONENTS', '@/components')
+      .set('_STORE', '@/store')
+      .set('_UTILS', '@/utils');
   },
 };

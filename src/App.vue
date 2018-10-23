@@ -1,36 +1,51 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-// import store from '_STORE';
-let customStyle = '';
-switch (store.state.component.theme) {
-  case 'black':
-    customStyle = './style/black.less';
-    break;
-  case 'blue':
-    customStyle = './style/blue.less';
-    break;
-  case 'red':
-    customStyle = './style/red.less';
-    break;
-}
-console.log(customStyle);
-// import `./style/${customStyle}.less`;
-// import './style/black.less';
-// import './style/blue.less';
-// import './style/red.less';
+import { mapState } from 'vuex';
+import { locale, page } from 'iview';
+import eventbus from '_UTILS/eventbus';
 
 export default {
   name: 'app',
+
+  components: {
+    page,
+  },
+
+  computed: {
+    ...mapState({
+      currentUILangPack: state => state.component.currentUILangPack, // 当前 UI 组件语言包
+    }),
+  },
+
+  data() {
+    return {
+      uiLangPack: null,
+    };
+  },
+
+  methods: {
+    async init() {
+      console.log('currentUILangPack', this.currentUILangPack.i.locale);
+      await locale(this.currentUILangPack);
+    },
+  },
+
+  created() {
+    this.init();
+    eventbus.$on('resetUILang', this.init);
+  },
 };
 </script>
 
 
 <style lang="less">
+@import '~@/style/customStyle/mixins/mixin';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
