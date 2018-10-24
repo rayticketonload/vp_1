@@ -1,16 +1,20 @@
 <template>
-  <RadioGroup v-model="currentLanguage"
-              type="button"
-              @on-change="languageChange(currentLanguage)">
-    <Radio v-for="(value, index) in LANGUAGE_LIST"
-           :key="index"
-           :label="value">{{ value }}</Radio>
-  </RadioGroup>
+  <div>
+    <div>
+      {{ $t('exampleSectionLang.test') }}
+    </div>
+    <RadioGroup v-model="currentLanguage"
+                type="button"
+                @on-change="languageChange(currentLanguage)">
+      <Radio v-for="(value, index) in LANGUAGE_LIST"
+             :key="index"
+             :label="value">{{ value }}</Radio>
+    </RadioGroup>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { RadioGroup, Radio } from 'iview';
 import eventbus from '_UTILS/eventbus';
 import store from '_STORE';
 import {
@@ -24,11 +28,6 @@ import uiLangPacks from '_UTILS/ui_lang_packs'; // 引入 UI 框架的语言包
 
 export default {
   name: 'languageChange',
-
-  components: {
-    Radio,
-    RadioGroup,
-  },
 
   computed: {
     ...mapState({

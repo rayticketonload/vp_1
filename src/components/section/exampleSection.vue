@@ -1,7 +1,7 @@
 <template>
   <div>
     <DatePicker type="date"
-                :placeholder="currentSectionLangPack.exampleSectionLang.valueDatePicker">
+                :placeholder="$t('exampleSectionLang.test')">
     </DatePicker>
     <Select v-model="model1">
       <Option v-for="item in cityList"
@@ -13,15 +13,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import { DatePicker, Select } from 'iview';
 
 export default {
   name: 'exampleSection',
-
-  components: {
-    DatePicker,
-    Select,
-  },
 
   data() {
     return {
