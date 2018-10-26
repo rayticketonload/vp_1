@@ -1,13 +1,17 @@
 <template>
   <div>
-    <DatePicker type="date"
-                :placeholder="$t('exampleSectionLang.test')">
-    </DatePicker>
-    <Select v-model="model1">
-      <Option v-for="item in cityList"
-              :value="item.value"
-              :key="item.value">{{ item.label }}</Option>
-    </Select>
+    <div style="padding-top: 30px;">
+      <DatePicker type="date"
+                  :placeholder="$t('exampleSectionLang.test')">
+      </DatePicker>
+    </div>
+    <div style="padding-top: 30px;">
+      <Select v-model="model1">
+        <Option v-for="item in cityList"
+                :value="item.value"
+                :key="item.value">{{ item.label }}</Option>
+      </Select>
+    </div>
   </div>
 </template>
 

@@ -1,71 +1,44 @@
 <template>
   <div>
-    <div>
-      {{ $t('exampleSectionLang.test') }}
-    </div>
-    <RadioGroup v-model="currentLanguage"
+    <RadioGroup v-model="currentLang"
+                size="small"
                 type="button"
-                @on-change="languageChange(currentLanguage)">
-      <Radio v-for="(value, index) in LANGUAGE_LIST"
+                @on-change="langChange(currentLang)">
+      <Radio v-for="(item, index) in languages"
              :key="index"
-             :label="value">{{ value }}</Radio>
+             :label="item.key">{{ item.name }}</Radio>
     </RadioGroup>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import eventbus from '_UTILS/eventbus';
-import store from '_STORE';
-import {
-  SET_LANGUAGE,
-  SET_SECTION_LANG_PACK,
-  SET_UI_LANG_PACK,
-} from '_STORE/types';
-import { LANGUAGE_LIST } from '_UTILS/const'; // 引入语种列表
-import sectionLangPacks from '_UTILS/section_lang_packs'; // 引入业务模板的语言包
-import uiLangPacks from '_UTILS/ui_lang_packs'; // 引入 UI 框架的语言包
+import { saveStorage } from '_UTILS/localStorageControl'; // localstorage 操作
 
 export default {
   name: 'languageChange',
 
-  computed: {
-    ...mapState({
-      language: state => state.component.language, // 当前语种环境
-    }),
-  },
-
   data() {
     return {
       // 语种列表
-      LANGUAGE_LIST,
+      languages: this.$config.languages,
       // 当前所用语种
-      currentLanguage: null,
+      currentLang: null,
     };
   },
 
   methods: {
-    languageChange(currentLanguage) {
-      store.commit(SET_LANGUAGE, currentLanguage);
-      switch (currentLanguage) {
-        case LANGUAGE_LIST.zhCN:
-          store.commit(SET_SECTION_LANG_PACK, sectionLangPacks.zhCN);
-          store.commit(SET_UI_LANG_PACK, uiLangPacks.uiZhCN);
-          eventbus.$emit('resetUILang');
-          break;
-        case LANGUAGE_LIST.enUS:
-          store.commit(SET_SECTION_LANG_PACK, sectionLangPacks.enUS);
-          store.commit(SET_UI_LANG_PACK, uiLangPacks.uiEnUS);
-          eventbus.$emit('resetUILang');
-          break;
-        default:
-          break;
-      }
+    // 改变语种
+    langChange(currentLang) {
+      // 赋值当前选择的 currentLang 到全局的 locale 语种
+      this.$i18n.locale = currentLang;
+      // 并保存到 localstorage
+      saveStorage(this.$config.storageLangKeyName, this.$i18n.locale);
     },
   },
 
   mounted() {
-    this.currentLanguage = this.language;
+    // 从全局的 locale 设置表里面拿到当前使用的语种
+    this.currentLang = this.$i18n.locale;
   },
 };
 </script>

@@ -3,7 +3,10 @@
     <div>
       <languageChange />
     </div>
-    <div style="padding-top: 30px;">
+    <div style="margin-top: 30px; background-color: #262f3b; border-radius: 3px; padding: 10px;">
+      <themeChange />
+    </div>
+    <div>
       <exampleSection />
     </div>
   </div>
@@ -11,12 +14,14 @@
 
 <script>
 import languageChange from '_COMPONENTS/section/languageChange.vue';
+import themeChange from '_COMPONENTS/section/themeChange.vue';
 import exampleSection from '_COMPONENTS/section/exampleSection.vue';
 
 export default {
   name: 'home',
   components: {
     languageChange,
+    themeChange,
     exampleSection,
   },
 };

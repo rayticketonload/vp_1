@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import { readStorage } from '_UTILS/localStorageControl';
+import { readStorage, saveStorage } from '_UTILS/localStorageControl';
+import config from '@/config';
 // 导入 iview 自带语言包
 import uiZhCN from 'iview/dist/locale/zh-CN'; // 简体中文包
 import uiEnUS from 'iview/dist/locale/en-US'; // 美式英语包
@@ -13,18 +14,22 @@ Vue.use(VueI18n);
 // 获取本机系统语言
 const sysLang = navigator.language;
 // 自动设置语言
-const localLang = sysLang === 'zh-CN' || sysLang === 'en-US' ? sysLang : false;
-const currentlang = localLang || readStorage('local') || 'zh-CN';
-// 配置默认语言
-Vue.config.lang = currentlang;
+const localLang =
+  sysLang === config.langKeys.zhcn || sysLang === config.langKeys.enus
+    ? sysLang
+    : false;
+const currentlang =
+  localLang || readStorage(config.storageLangKeyName) || config.langKeys.zhcn;
+// 保存默认语言
+saveStorage(config.storageLangKeyName, currentlang);
 
 // 兼容 vue-i18n 6.x+
 Vue.locale = () => {};
 
 // 多语言配置
 const messages = {
-  'zh-CN': Object.assign(uiZhCN, appZhCN),
-  'en-US': Object.assign(uiEnUS, appEnUS),
+  [`${config.langKeys.zhcn}`]: Object.assign(uiZhCN, appZhCN),
+  [`${config.langKeys.enus}`]: Object.assign(uiEnUS, appEnUS),
 };
 
 const i18n = new VueI18n({
