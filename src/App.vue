@@ -25,8 +25,7 @@ export default {
 
 <style lang="less">
 @import '~@/style/customStyle/mixins/mixin';
-// 3套主题样式
-@import '~@/style/customStyle/t1/t1';
+// 3套主题样式 (t1 就是默认样式)
 @import '~@/style/customStyle/t2/t2';
 @import '~@/style/customStyle/t3/t3';
 

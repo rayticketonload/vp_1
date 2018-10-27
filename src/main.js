@@ -9,7 +9,7 @@ import * as directives from '@/directives';
 // import * as filters from '_UTILS/filter';
 import 'iview/dist/styles/iview.css';
 // 单独修改其中一套皮肤用，用前先将 app.vue 里面 import 的 t 系列 less 全注释掉
-// import '@/style/t1.less';
+import '@/style/var_t1.less';
 
 Vue.use(iView, {
   i18n: (key, value) => i18n.t(key, value),
