@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import iView from 'iview';
-import i18n from '_UTILS/lang';
+import i18n from '@UTILS/lang';
 import router from '@/router';
 import store from '@/store';
 import App from '@/App.vue';
 import config from '@/config';
 import * as directives from '@/directives';
-// import * as filters from '_UTILS/filter';
+// import * as filters from '@UTILS/filter';
 import 'iview/dist/styles/iview.css';
-// 单独修改其中一套皮肤用，用前先将 app.vue 里面 import 的 t 系列 less 全注释掉
 import '@/style/var_t1.less';
 
 Vue.use(iView, {

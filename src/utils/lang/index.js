@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import { readStorage, saveStorage } from '_UTILS/localStorageControl';
+import { readStorage, saveStorage } from '@UTILS/localStorageControl';
 import config from '@/config';
 // 导入 iview 自带语言包
 import uiZhCN from 'iview/dist/locale/zh-CN'; // 简体中文包
 import uiEnUS from 'iview/dist/locale/en-US'; // 美式英语包
 // 导入应用语言包
-import appZhCN from '_UTILS/lang/app_lang_packs/zh-CN'; // 简体中文包
-import appEnUS from '_UTILS/lang/app_lang_packs/en-US'; // 美式英语包
+import appZhCN from '@UTILS/lang/app_lang_packs/zh-CN'; // 简体中文包
+import appEnUS from '@UTILS/lang/app_lang_packs/en-US'; // 美式英语包
 
 Vue.use(VueI18n);
 

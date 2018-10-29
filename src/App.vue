@@ -5,20 +5,22 @@
 </template>
 
 <script>
-import { readStorage } from '_UTILS/localStorageControl';
+import { readStorage } from '@UTILS/localStorageControl';
 
 export default {
   name: 'app',
 
   data() {
     return {
-      currentTheme: readStorage(this.$config.storageThemeKeyName) || this.$config.themes[0].themeKey,
-    }
+      currentTheme:
+        readStorage(this.$config.storageThemeKeyName) ||
+        this.$config.themes[0].themeKey,
+    };
   },
 
   mounted() {
     document.getElementById('app').className = `${this.currentTheme}`;
-  }
+  },
 };
 </script>
 

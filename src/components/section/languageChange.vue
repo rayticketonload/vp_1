@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { saveStorage } from '_UTILS/localStorageControl'; // localstorage 操作
+import { saveStorage } from '@UTILS/localStorageControl'; // localstorage 操作
 
 export default {
   name: 'languageChange',

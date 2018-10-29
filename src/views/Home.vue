@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import languageChange from '_COMPONENTS/section/languageChange.vue';
-import themeChange from '_COMPONENTS/section/themeChange.vue';
-import exampleSection from '_COMPONENTS/section/exampleSection.vue';
+import languageChange from '@COM/section/languageChange.vue';
+import themeChange from '@COM/section/themeChange.vue';
+import exampleSection from '@COM/section/exampleSection.vue';
 
 export default {
   name: 'home',
