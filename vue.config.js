@@ -10,6 +10,6 @@ module.exports = {
     config.resolve.alias
       .set('@COM', '@/components')
       .set('_STORE', '@/store')
-      .set('_UTILS', '@/utils');
+      .set('@UTILS', '@/utils');
   },
 };

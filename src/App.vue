@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { readStorage } from '_UTILS/localStorageControl';
+import { readStorage } from '@UTILS/localStorageControl';
 
 export default {
   name: 'app',
