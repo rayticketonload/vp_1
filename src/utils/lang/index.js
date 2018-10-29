@@ -19,7 +19,7 @@ const localLang =
     ? sysLang
     : false;
 const currentlang =
-  localLang || readStorage(config.storageLangKeyName) || config.langKeys.zhcn;
+  readStorage(config.storageLangKeyName) || localLang || config.langKeys.zhcn;
 // 保存默认语言
 saveStorage(config.storageLangKeyName, currentlang);
 
