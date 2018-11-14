@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { saveStorage } from '@UTILS/localStorageControl'; // localstorage 操作
+import { savels } from 'UTILS/storageControl'; // localstorage 操作
 
 export default {
   name: 'languageChange',
@@ -32,7 +32,7 @@ export default {
       // 赋值当前选择的 currentLang 到全局的 locale 语种
       this.$i18n.locale = currentLang;
       // 并保存到 localstorage
-      saveStorage(this.$config.storageLangKeyName, this.$i18n.locale);
+      savels(this.$config.storageLangKeyName, this.$i18n.locale);
     },
   },
 

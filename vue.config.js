@@ -1,4 +1,18 @@
 module.exports = {
+  devServer: {
+    host: 'localhost',
+    port: 8098,
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://rap2api.taobao.org',
+    //     // 将主机标头的原点更改为目标URL
+    //     changeOrigin: true,
+    //     pathRequiresRewrite: {
+    //       '^/api': '/app/mock/5653',
+    //     },
+    //   },
+    // },
+  },
   css: {
     // 配置css模块
     loaderOptions: {
@@ -11,12 +25,13 @@ module.exports = {
   },
   chainWebpack: (config) => {
     config.resolve.alias
-      .set('@ASSETS', '@/assets')
-      .set('@COM', '@/components')
-      .set('@CONFIG', '@/config')
-      .set('@ROUTER', '@/router')
-      .set('@STORE', '@/store')
-      .set('@UTILS', '@/utils')
-      .set('@VIEWS', '@/views');
+      .set('ASSETS', '@/assets')
+      .set('COM', '@/components')
+      .set('API', '@/api')
+      .set('CONFIG', '@/config/index.js')
+      .set('ROUTER', '@/router')
+      .set('STORE', '@/store')
+      .set('UTILS', '@/utils')
+      .set('VIEWS', '@/views');
   },
 };

@@ -1,22 +1,22 @@
-import reviewManagement from './funder/reviewManagement';
-import financingManagement from './funder/financingManagement';
-import systemManagement from './funder/systemManagement';
-// import miscFunder from './funder/misc';
+import { ROUTER_PUBLIC } from 'CONFIG';
+import Public from './components/public';
+import Example from './components/example';
+
+// 内页路由阀
+const sys = r => require.ensure([], () => r(require('VIEWS/sys')), 'sys');
 
 export default [
-  ...miscFunder, // 首页，登录，404，邮件外链等
+  ...Public, // 首页，登录，404等
   {
-    path: '/app',
-    component: r => require.ensure([], () => r(require('@pages/app')), 'app'),
-    redirect: 'notFound',
+    path: '/sys',
+    component: sys,
+    redirect: { name: ROUTER_PUBLIC.PAGE_404 },
     children: [
-      ...reviewManagement, // 审核管理
-      ...financingManagement, // 融资管理
-      ...systemManagement, // 系统管理
+      ...Example,
     ],
   },
   {
     path: '*',
-    redirect: 'notFound',
+    redirect: { name: ROUTER_PUBLIC.PAGE_404 },
   },
 ];

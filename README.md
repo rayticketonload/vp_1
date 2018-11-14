@@ -30,3 +30,6 @@ npm run lint
 ```
 npm run test:unit
 ```
+
+### src/config
+配置设定值的集合，这里统一收集便于管理

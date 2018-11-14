@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { readStorage } from '@UTILS/localStorageControl';
+import { readls } from 'UTILS/storageControl';
 
 export default {
   name: 'app',
@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       currentTheme:
-        readStorage(this.$config.storageThemeKeyName) ||
+        readls(this.$config.storageThemeKeyName) ||
         this.$config.themes[0].themeKey,
     };
   },

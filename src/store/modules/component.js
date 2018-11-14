@@ -1,4 +1,4 @@
-// import { themes } from '@UTILS/const';
+// import { themes } from 'UTILS/const';
 // import { SET_THEME } from '../types';
 
 // const state = {

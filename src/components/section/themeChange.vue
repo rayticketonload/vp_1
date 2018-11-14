@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { saveStorage } from '@UTILS/localStorageControl'; // localstorage 操作
+import { savels } from 'UTILS/storageControl'; // localstorage 操作
 
 export default {
   name: 'themeChange',
@@ -47,7 +47,7 @@ export default {
 
     themeOptionClick(themeKey) {
       document.getElementById('app').className = `${themeKey}`;
-      saveStorage(this.$config.storageThemeKeyName, themeKey);
+      savels(this.$config.storageThemeKeyName, themeKey);
       this.themeSwitchOff();
     },
   },

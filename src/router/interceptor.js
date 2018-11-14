@@ -1,101 +1,83 @@
-import NProgress from 'nprogress';
-import store from '@store';
-import { GET_PROFILE } from '@store/types';
+import Vue from 'vue';
+import iView from 'iview';
+import Router from 'vue-router';
+import store from 'STORE';
+import { GET_USER_INFO } from 'STORE/types';
+import { APP_NAME, tokenKeyName, ROUTER_PUBLIC } from 'CONFIG';
+import { readss } from 'UTILS/storageControl';
 
-import { FUNDER_PUBLIC_PAGE, SYSTEM_NAME, ASIDE_LEFT_MAP_BACKEND } from '@helper/const';
-
-export default {
-  use(router) {
-    router.beforeEach(filter);
-    router.afterEach(() => {
-      NProgress.done();
-    });
-  },
-};
-
-const getResKeyByName = (name) => {
-  let key = null;
-  for (const item in ASIDE_LEFT_MAP_BACKEND) {
-    ASIDE_LEFT_MAP_BACKEND[item].some((i) => {
-      if (i === name) {
-        key = item;
-        return true;
-      }
-    });
-  }
-  return key;
-};
-
-const canVisit = (name) => {
-  const resKey = getResKeyByName(name);
-  if (!resKey) return false;
-  return store.state.profile.canAccessed.some((key) => {
-    if (key === resKey) return true;
-  });
-};
-
-const defaultVisit = (name) => {
-  switch (name) {
-    case FUNDER_PUBLIC_PAGE.SYSTEM_HOME:
-    case FUNDER_PUBLIC_PAGE.NOT_FOUND:
-    case FUNDER_PUBLIC_PAGE.ACTIVATION:
-    case FUNDER_PUBLIC_PAGE.INVITE_LOGIN:
-      return true;
-  }
-  return false;
-};
-
-const activationVisit = (name) => {
-  switch (name) {
-    case FUNDER_PUBLIC_PAGE.ACTIVATION:
-    case FUNDER_PUBLIC_PAGE.INVITE_LOGIN:
-      return true;
-  }
-  return false;
-};
+Vue.use(Router);
 
 const filter = async (to, from, next) => {
-  document.title = SYSTEM_NAME;
-  NProgress.start();
-  //
-  if (!store.state.profile.hasLogin) {
-    if (activationVisit(to.name)) {
-      NProgress.done();
-      next();
-      return;
-    } else if (to.name === FUNDER_PUBLIC_PAGE.LOGIN) {
-      NProgress.done();
-      next();
-      return;
-    }
-    await store.dispatch(GET_PROFILE);
-    NProgress.done();
-    next();
+  document.title = APP_NAME;
+  // iView.LoadingBar.start();
+
+  // iView.LoadingBar.finish();
+  // next();
+  const loginToken = readss(tokenKeyName);
+  console.log('loginToken', loginToken);
+  let loginStatus;
+
+  if (!store.state.profile.userLogin && !loginToken) {
+    loginStatus = 1; // 完全没登录过，需要转到登录页面
+  } else if (!store.state.profile.userLogin && loginToken) {
+    loginStatus = 2; // 有登录过，验证 session 里面的 token有无过期，无过期就标记为登录，然后获取用户信息
+  } else if (store.state.profile.userLogin && !loginToken) {
+    loginStatus = 3; // 有登录过，但找不到 session 里面的 token，需要转到登录页面重新登录
+  } else if (store.state.profile.userLogin && loginToken) {
+    loginStatus = 4; // 无须重新登录
   }
 
-  if (store.state.profile.hasLogin) {
-    NProgress.done();
-    if (to.name === FUNDER_PUBLIC_PAGE.LOGIN) {
-      next({
-        name: FUNDER_PUBLIC_PAGE.SYSTEM_HOME,
-      });
-      return;
-    }
+  console.log('loginStatus', loginStatus);
 
-    // 默认权限
-    if (defaultVisit(to.name)) {
-      NProgress.done();
-      next();
-      return;
-    } else if (!canVisit(to.name)) {
-      NProgress.done();
-      // 没权限
-      next({
-        name: FUNDER_PUBLIC_PAGE.SYSTEM_HOME,
-      });
-      return;
-    }
-    NProgress.done();
-    next();
+  const k = loginStatus;
+
+  if (k === 1) {
+    next({
+      path: `/${ROUTER_PUBLIC.LOGIN}`,
+      name: ROUTER_PUBLIC.LOGIN,
+      query: { redirect: to.fullPath },
+    });
   }
+
+  // switch (loginStatus) {
+  //   case 1:
+  //     // iView.LoadingBar.finish();
+  //     next({
+  //       name: ROUTER_PUBLIC.LOGIN,
+  //     });
+  //     break;
+  //   default:
+  //     next();
+  //     break;
+  //   // case 2:
+  //   //   // iView.LoadingBar.finish();
+  //   //   await store.dispatch(GET_USER_INFO);
+  //   //   break;
+  //   // case 3:
+  //   //   // iView.LoadingBar.finish();
+  //   //   next({
+  //   //     name: ROUTER_PUBLIC.LOGIN,
+  //   //   });
+  //   //   // iView.Message.error('登录超时，请重新登录');
+  //   //   break;
+  //   // case 4:
+  //   //   if (to.name === ROUTER_PUBLIC.LOGIN) {
+  //   //     // iView.LoadingBar.finish();
+  //   //     next({
+  //   //       name: ROUTER_PUBLIC.HOME,
+  //   //     });
+  //   //     return;
+  //   //   }
+  //   //   // iView.LoadingBar.finish();
+  //   //   next();
+  //   //   break;
+  // }
 };
+
+Router.beforeEach(filter);
+Router.afterEach(() => {
+  // iView.LoadingBar.finish();
+});
+
+export default router;

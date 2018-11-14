@@ -1,7 +1,8 @@
-// 用于组件
-export const SET_THEME = 'SET_THEME';
-export const SET_LANGUAGE = 'SET_LANGUAGE';
-export const SET_SECTION_LANG_PACK = 'SET_SECTION_LANG_PACK';
-export const SET_UI_LANG_PACK = 'SET_UI_LANG_PACK';
-
 // 用于业务
+export const LOGIN = 'LOGIN';
+export const GET_USER_INFO = 'GET_USER_INFO';
+export const LOGOUT = 'LOGOUT';
+export const SET_USERNAME = 'SET_USERNAME';
+export const SET_USEREMAIL = 'SET_USEREMAIL';
+export const SET_USERID = 'SET_USERID';
+

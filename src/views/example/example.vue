@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import languageChange from '@COM/section/languageChange.vue';
-import themeChange from '@COM/section/themeChange.vue';
-import exampleSection from '@COM/section/exampleSection.vue';
+import languageChange from 'COM/section/languageChange.vue';
+import themeChange from 'COM/section/themeChange.vue';
+import exampleSection from 'COM/section/exampleSection.vue';
 
 export default {
-  name: 'home',
+  name: 'example',
   components: {
     languageChange,
     themeChange,
