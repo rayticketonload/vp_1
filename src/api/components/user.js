@@ -11,7 +11,7 @@ const getUserInfo = (params) => {
 };
 
 // 登出
-const logout = () => axios.get('/logout');
+const logout = () => axios.get('http://rap2api.taobao.org/app/mock/5653/logout');
 
 // 获取登录验证码 参数传 phone : xxx
 const getVerifyCode = params => axios.post('/api/verifyCode', params);

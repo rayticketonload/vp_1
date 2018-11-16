@@ -12,11 +12,18 @@
                 :key="item.value">{{ item.label }}</Option>
       </Select>
     </div>
+    <div style="padding-top: 30px;">
+      <Button type="primary"
+              @click="toHome()">
+        {{ $t('exampleSectionLang.toHome') }}
+      </Button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { ROUTER_AUTH } from 'CONFIG';
 
 export default {
   name: 'exampleSection',
@@ -57,6 +64,14 @@ export default {
     ...mapState({
       currentSectionLangPack: state => state.component.currentSectionLangPack, // 当前语言包
     }),
+  },
+
+  methods: {
+    toHome() {
+      this.$router.push({
+        name: ROUTER_AUTH.HOME,
+      });
+    },
   },
 };
 </script>

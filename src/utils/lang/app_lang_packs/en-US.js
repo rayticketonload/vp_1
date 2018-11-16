@@ -1,6 +1,15 @@
 // 测试模块
 const exampleSectionLang = {
   test: 'test',
+  toHome: 'home',
+};
+
+// 路由模块
+const routerSection = {
+  // message
+  message: {
+    tokenError: 'Authentication fail, please login again',
+  },
 };
 
 // 登录模块
@@ -12,7 +21,7 @@ const loginSection = {
   },
   // html字符串内容
   innerHtml: {
-    loginButton: 'login',
+    loginBtn: 'login',
   },
   // 表单验证信息
   verifyMsg: {
@@ -29,9 +38,27 @@ const loginSection = {
     success: 'Success',
     fail: 'Fail',
   },
+  // message
+  message: {
+    loginSuccess: 'Login success',
+  },
+};
+
+const homeSection = {
+  // html字符串内容
+  innerHtml: {
+    logoutBtn: 'Logout',
+    toExamplePage: 'Example',
+  },
+  // message
+  message: {
+    logoutSuccess: 'Logout success',
+  },
 };
 
 export default {
   exampleSectionLang,
+  routerSection,
   loginSection,
+  homeSection,
 };

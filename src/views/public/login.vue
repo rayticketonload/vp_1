@@ -23,7 +23,7 @@
       <FormItem>
         <Button type="primary"
                 @click="handleSubmit('formInline')">
-          {{$t('loginSection.innerHtml.loginButton')}}
+          {{$t('loginSection.innerHtml.loginBtn')}}
         </Button>
       </FormItem>
     </Form>
@@ -81,12 +81,8 @@ export default {
       let pass = false;
       this.$refs[name].validate(valid => {
         if (valid) {
-          this.$Message.success(this.$t('loginSection.result.success'));
           pass = true;
-        } else {
-          this.$Message.error(this.$t('loginSection.result.fail'));
-          return;
-        }
+        } else return;
       });
 
       if (pass) {
@@ -97,6 +93,10 @@ export default {
         try {
           await this[LOGIN](loginParams);
           if (this.userLogin) {
+            this.$Message.success({
+              content: this.$t('loginSection.message.loginSuccess'),
+              duration: 3,
+            });
             const redirect = decodeURIComponent(
               this.$route.query.redirect || '/',
             );
@@ -104,9 +104,7 @@ export default {
               path: redirect,
             });
           }
-        } catch (e) {
-          this.$Message.error(e.errMsg);
-        }
+        } catch (e) {}
       }
     },
   },

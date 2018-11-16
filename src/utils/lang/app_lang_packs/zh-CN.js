@@ -1,6 +1,15 @@
 // 测试模块
 const exampleSectionLang = {
   test: '测试',
+  toHome: '首页',
+};
+
+// 路由模块
+const routerSection = {
+  // message
+  message: {
+    tokenError: '登录凭证有误，请重新登录',
+  },
 };
 
 // 登录模块
@@ -12,7 +21,7 @@ const loginSection = {
   },
   // html字符串内容
   innerHtml: {
-    loginButton: '登录',
+    loginBtn: '登录',
   },
   // 表单验证信息
   verifyMsg: {
@@ -29,9 +38,27 @@ const loginSection = {
     success: '提交成功',
     fail: '提交失败',
   },
+  // message
+  message: {
+    loginSuccess: '登录成功',
+  },
+};
+
+const homeSection = {
+  // html字符串内容
+  innerHtml: {
+    logoutBtn: '注销',
+    toExamplePage: '案例',
+  },
+  // message
+  message: {
+    logoutSuccess: '注销账户成功',
+  },
 };
 
 export default {
   exampleSectionLang,
+  routerSection,
   loginSection,
+  homeSection,
 };

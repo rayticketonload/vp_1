@@ -1,6 +1,6 @@
-// import iView from 'iview';
+import iView from 'iview';
 import api from 'API';
-import { tokenKeyName, ROUTER_PUBLIC } from 'CONFIG';
+import { tokenKeyName } from 'CONFIG';
 import { savess, readss, clearss } from 'UTILS/storageControl';
 import {
   LOGIN,
@@ -43,15 +43,14 @@ const actions = {
     try {
       const {
         data: {
-          errorMsg,
-          result,
-          content: {
-            name, email, id, token,
-          },
+          name, email, id, msg, result, token,
         },
       } = await api.login(params);
       if (result === 'error') {
-        // iView.$Message.error(errorMsg);
+        iView.Message.error({
+          content: msg,
+          duration: 3,
+        });
       } else {
         commit(LOGIN);
         commit(SET_USERNAME, name);
@@ -60,7 +59,10 @@ const actions = {
         savess(tokenKeyName, token);
       }
     } catch (e) {
-      // iView.$Message.info(e.errorMsg);
+      iView.Message.error({
+        content: e.errorMsg,
+        duration: 3,
+      });
     }
   },
   [GET_USER_INFO]: async ({ commit }) => {
@@ -74,35 +76,49 @@ const actions = {
         },
       } = await api.getUserInfo(params);
       if (result === 'error') {
-        // iView.$Message.error(errorMsg);
-        clearss();
-        this.$router.push({
-          name: ROUTER_PUBLIC.LOGIN,
+        iView.Message.error({
+          content: msg,
+          duration: 3,
         });
+        commit(LOGOUT);
+        clearss();
+        return false;
       }
       commit(LOGIN);
       commit(SET_USERNAME, name);
       commit(SET_USEREMAIL, email);
       commit(SET_USERID, id);
+      return true;
     } catch (e) {
-      // View.$Message.error(e.errorMsg);
+      iView.Message.error({
+        content: e.errorMsg,
+        duration: 3,
+      });
+      commit(LOGOUT);
+      clearss();
+      return false;
     }
   },
   [LOGOUT]: async ({ commit }, immediate) => {
     if (!immediate) {
       try {
-        const { errorMsg, result } = await api.logout();
+        const {
+          data: { msg, result },
+        } = await api.logout();
         if (result === 'error') {
-          // iView.$Message.error(errorMsg);
-        } else {
-          commit(LOGOUT);
-          clearss();
-          this.$router.push({
-            name: ROUTER_PUBLIC.LOGIN,
+          iView.Message.error({
+            content: msg,
+            duration: 3,
           });
+          return;
         }
+        commit(LOGOUT);
+        clearss();
       } catch (e) {
-        // iView.$Message.error(e.errorMsg);
+        iView.Message.error({
+          content: e.errorMsg,
+          duration: 3,
+        });
       }
     }
   },
