@@ -3,7 +3,7 @@ import axios from 'axios';
 // import router from 'ROUTER';
 // import getPathName from 'UTILS/getPathName';
 // import { LOGOUT } from 'STORE/types';
-// import { ROUTER_PUBLIC, ROUTER_AUTH } from 'CONFIG';
+// import { ROUTES_CONST } from 'CONFIG';
 // import whiteList from './whiteList';
 
 export default {

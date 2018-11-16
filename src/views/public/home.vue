@@ -14,7 +14,7 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import { LOGOUT } from 'STORE/types';
-import { ROUTER_PUBLIC, ROUTER_AUTH } from 'CONFIG';
+import { ROUTES_CONST } from 'CONFIG';
 
 export default {
   name: 'home',
@@ -30,7 +30,7 @@ export default {
 
     toExample() {
       this.$router.push({
-        name: ROUTER_AUTH.EXAMPLE,
+        name: ROUTES_CONST.AUTH.EXAMPLE,
       });
     },
 
@@ -43,7 +43,7 @@ export default {
             duration: 3,
           });
           this.$router.push({
-            name: ROUTER_PUBLIC.LOGIN,
+            name: ROUTES_CONST.PUBLIC.LOGIN,
           });
           return
         }

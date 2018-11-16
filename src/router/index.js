@@ -4,101 +4,14 @@ import i18n from 'UTILS/lang';
 import iView from 'iview';
 import store from 'STORE';
 import { GET_USER_INFO } from 'STORE/types';
-import { APP_NAME, tokenKeyName, ROUTER_PUBLIC, ROUTER_AUTH } from 'CONFIG';
+import { APP_NAME, tokenKeyName, ROUTES_CONST } from 'CONFIG';
 import { readss } from 'UTILS/storageControl';
+import routes from './routers';
 
 Vue.use(VueRouter);
-/**
- * 不需权限页面
- */
-// 登录
-const login = r =>
-  require.ensure([], () => r(require('VIEWS/public/login')), 'login');
-// 404
-const page404 = r =>
-  require.ensure([], () => r(require('VIEWS/public/page404')), 'page404');
-/**
- * 需要权限页面
- */
-// 应用页路由阀
-const sys = r => require.ensure([], () => r(require('VIEWS/sys')), 'sys');
-// 首页
-const home = r =>
-  require.ensure([], () => r(require('VIEWS/public/home')), 'home');
-// 示例
-const example = r =>
-  require.ensure([], () => r(require('VIEWS/example/example')), 'example');
 
 const router = new VueRouter({
-  routes: [
-    /**
-     *
-     * 不需权限页面
-     *
-     * */
-    // 登录页
-    {
-      path: `/${ROUTER_PUBLIC.LOGIN}`,
-      name: ROUTER_PUBLIC.LOGIN,
-      component: login,
-      meta: {
-        title: ROUTER_PUBLIC.LOGIN_TITLE,
-      },
-    },
-    // 404
-    {
-      path: `/${ROUTER_PUBLIC.PAGE_404}`,
-      name: ROUTER_PUBLIC.PAGE_404,
-      component: page404,
-      meta: {
-        title: ROUTER_PUBLIC.PAGE_404,
-      },
-    },
-    /**
-     *
-     * 需要权限页面
-     *
-     * */
-    // 需要权限页面的集中入口
-    {
-      path: '/sys',
-      component: sys,
-      redirect: { name: ROUTER_AUTH.HOME },
-      children: [
-        {
-          path: `/${ROUTER_AUTH.HOME}`,
-          name: ROUTER_AUTH.HOME,
-          component: home,
-          meta: {
-            requireAuth: true,
-            title: ROUTER_AUTH.HOME_TITLE,
-          },
-        },
-        {
-          path: '/example',
-          name: 'example',
-          component: example,
-          meta: {
-            requireAuth: true,
-            title: '示例',
-          },
-        },
-      ],
-    },
-    {
-      path: '/',
-      redirect: { name: ROUTER_AUTH.HOME },
-      component: home,
-      meta: {
-        requireAuth: true,
-        title: ROUTER_AUTH.HOME_TITLE,
-      },
-    },
-    {
-      path: '*',
-      redirect: { name: ROUTER_PUBLIC.PAGE_404 },
-    },
-  ],
+  routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
@@ -136,7 +49,7 @@ const filter = async (to, from, next) => {
     switch (loginStatus) {
       case 1:
         next({
-          path: `/${ROUTER_PUBLIC.LOGIN}`,
+          path: `/${ROUTES_CONST.PUBLIC.LOGIN}`,
           query: { redirect: to.fullPath },
         });
         break;
@@ -147,7 +60,7 @@ const filter = async (to, from, next) => {
             duration: 3,
           });
           next({
-            path: `/${ROUTER_PUBLIC.LOGIN}`,
+            path: `/${ROUTES_CONST.PUBLIC.LOGIN}`,
             query: { redirect: to.fullPath },
           });
           return;
@@ -160,7 +73,7 @@ const filter = async (to, from, next) => {
           duration: 3,
         });
         next({
-          path: `/${ROUTER_PUBLIC.LOGIN}`,
+          path: `/${ROUTES_CONST.PUBLIC.LOGIN}`,
           query: { redirect: to.fullPath },
         });
         break;
@@ -182,9 +95,9 @@ const filter = async (to, from, next) => {
         next();
         break;
       case 4:
-        if (to.name === ROUTER_PUBLIC.LOGIN) {
+        if (to.name === ROUTES_CONST.PUBLIC.LOGIN) {
           next({
-            name: ROUTER_AUTH.HOME,
+            name: ROUTES_CONST.AUTH.HOME,
           });
           return;
         }

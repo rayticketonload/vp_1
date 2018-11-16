@@ -48,20 +48,20 @@ export const themes = [
 // 放到 localstorage 的 key 名字
 export const storageThemeKeyName = 'theme';
 
-// 公共页面路由常量 // 登录 // 404
-export const ROUTER_PUBLIC = {
-  LOGIN: 'login',
-  LOGIN_TITLE: '登录',
-  PAGE_404: 'page_404',
-  PAGE_404_TITLE: 'page not found',
-};
-
-// 权限路由常量 // 示例 // 首页
-export const ROUTER_AUTH = {
-  EXAMPLE: 'example',
-  EXAMPLE_TITLE: '示例',
-  HOME: 'home',
-  HOME_TITLE: '首页',
+// 路由常量
+export const ROUTES_CONST = {
+  PUBLIC: {
+    LOGIN: 'login',
+    LOGIN_TITLE: '登录',
+    PAGE_404: 'page_404',
+    PAGE_404_TITLE: 'page not found',
+  },
+  AUTH: {
+    EXAMPLE: 'example',
+    EXAMPLE_TITLE: '示例',
+    HOME: 'home',
+    HOME_TITLE: '首页',
+  },
 };
 
 export default {
@@ -73,6 +73,5 @@ export default {
   languages,
   themes,
   storageThemeKeyName,
-  ROUTER_PUBLIC,
-  ROUTER_AUTH,
+  ROUTES_CONST,
 };

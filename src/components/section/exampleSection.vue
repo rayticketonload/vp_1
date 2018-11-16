@@ -23,7 +23,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { ROUTER_AUTH } from 'CONFIG';
+import { ROUTES_CONST } from 'CONFIG';
 
 export default {
   name: 'exampleSection',
@@ -69,7 +69,7 @@ export default {
   methods: {
     toHome() {
       this.$router.push({
-        name: ROUTER_AUTH.HOME,
+        name: ROUTES_CONST.AUTH.HOME,
       });
     },
   },
