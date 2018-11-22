@@ -1,20 +1,26 @@
-import axios from 'axios';
+import axios from '../axios';
 import { eraseEmpty } from '../utils';
 
 // 登入 参数传 phone : xxx，verifyCode : xxx
-const login = params => axios.post('http://rap2api.taobao.org/app/mock/5653/login', params);
+const login = (params) => {
+  const data = eraseEmpty(params);
+  return axios.post('login', data);
+};
 
 // 获取用户信息
 const getUserInfo = (params) => {
-  const token = eraseEmpty(params);
-  return axios.post('http://rap2api.taobao.org/app/mock/5653/userInfo', token);
+  const data = eraseEmpty(params);
+  return axios.post('userInfo', data);
 };
 
 // 登出
-const logout = () => axios.get('http://rap2api.taobao.org/app/mock/5653/logout');
+const logout = () => axios.get('logout');
 
 // 获取登录验证码 参数传 phone : xxx
-const getVerifyCode = params => axios.post('/api/verifyCode', params);
+const getVerifyCode = (params) => {
+  const data = eraseEmpty(params);
+  return axios.post('verifyCode', data);
+};
 
 export default {
   login,

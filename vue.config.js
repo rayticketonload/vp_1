@@ -1,17 +1,37 @@
+const path = require('path');
+
+const resolve = dir => path.join(__dirname, dir);
+
+const getIP = () => {
+  const os = require('os');
+  const ifaces = os.networkInterfaces();
+  let ip = '';
+  for (const dev in ifaces) {
+    ifaces[dev].forEach((details) => {
+      if (ip === '' && details.family === 'IPv4' && !details.internal) {
+        ip = details.address;
+      }
+    });
+  }
+  return ip;
+};
+
 module.exports = {
+  // 默认情况下，我们假设你的应用将被部署在域的根目录下,
+  // 如果应用程序部署在子路径中，则需要在这指定子路径
+  // baseUrl: '/',
+  lintOnSave: true,
   devServer: {
-    host: 'localhost',
+    host: getIP(),
     port: 8098,
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://rap2api.taobao.org',
-    //     // 将主机标头的原点更改为目标URL
-    //     changeOrigin: true,
-    //     pathRequiresRewrite: {
-    //       '^/api': '/app/mock/5653',
-    //     },
-    //   },
-    // },
+    proxy: {
+      '/': {
+        target: 'http://rap2api.taobao.org/',
+        // 将主机标头的原点更改为目标URL
+        changeOrigin: true,
+        ws: true,
+      },
+    },
   },
   css: {
     // 配置css模块
@@ -25,6 +45,7 @@ module.exports = {
   },
   chainWebpack: (config) => {
     config.resolve.alias
+      .set('@', resolve('src'))
       .set('ASSETS', '@/assets')
       .set('COM', '@/components')
       .set('API', '@/api')
@@ -34,4 +55,5 @@ module.exports = {
       .set('UTILS', '@/utils')
       .set('VIEWS', '@/views');
   },
+  productionSourceMap: true,
 };
